@@ -1,10 +1,16 @@
 from flask.cli import FlaskGroup
-from project import app
+from project import create_app, db
+from project.api.models import User
 import sys
 import unittest
 
+# Now you can work with the app and db directly
+# docker-compose exec users flask shell
+# >>> app
+# >>> db
+app = create_app()
+cli = FlaskGroup(create_app=create_app)
 
-cli = FlaskGroup(app)
 
 @cli.command('recreate_db')
 def recreate_db():
